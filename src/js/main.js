@@ -10,6 +10,7 @@
 
 const snapshotButton = document.querySelector('button#snapshot');
 const filterSelect = document.querySelector('select#filter');
+const pomidoras = document.querySelector('button#red');
 
 // Put variables in global scope to make them available to the browser console.
 const video = window.video = document.querySelector('video');
@@ -20,6 +21,7 @@ canvas.height = 360;
 snapshotButton.onclick = function() {
   canvas.className = filterSelect.value;
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+	
 };
 
 filterSelect.onchange = function() {
@@ -41,3 +43,17 @@ function handleError(error) {
 }
 
 navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+
+pomidoras.onclick = function() {
+    //var canvas = document.getElementsByTagName('canvas');
+    var ctx = canvas.getContext('2d');
+    //ctx.drawImage(img, 0, 0);
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data = imageData.data;
+    for (var i = 0; i < data.length; i += 4) {
+      //data[i]     = avg; // red
+      data[i + 1] = 0; // green
+      data[i + 2] = 0; // blue
+    }
+    ctx.putImageData(imageData, 0, 0);
+  };
