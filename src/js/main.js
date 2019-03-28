@@ -10,7 +10,8 @@
 
 const snapshotButton = document.querySelector('button#snapshot');
 const filterSelect = document.querySelector('select#filter');
-const pomidoras = document.querySelector('button#red');
+const pomidoras = document.querySelector('option[value=red]');
+const redButton = document.querySelector('button#red');
 
 // Put variables in global scope to make them available to the browser console.
 const video = window.video = document.querySelector('video');
@@ -45,9 +46,7 @@ function handleError(error) {
 navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
 
 pomidoras.onclick = function() {
-    //var canvas = document.getElementsByTagName('canvas');
     var ctx = canvas.getContext('2d');
-    //ctx.drawImage(img, 0, 0);
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     var data = imageData.data;
     for (var i = 0; i < data.length; i += 4) {
